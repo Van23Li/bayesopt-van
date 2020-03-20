@@ -24,7 +24,8 @@ search_area_scale = opt.mins(2):0.001:opt.maxes(2);
 param_cell = {scale_step, search_area_scale};
 opt.grid = permutation_and_combination(param_cell);
 
-opt.parrallel_jobs = 2;
+%van:几核跑，相当于同时开n个matlab 
+opt.parrallel_jobs = 4;
 
 %van:最大迭代次数
 opt.max_iters = 100;
@@ -185,6 +186,7 @@ fprintf(fid,'%.4f \t  %.4f \t %.4f \t %.4f\n', opt_param(1), opt_param(2), avg_p
 fclose(fid);
 clear fid
 
+%van:你的总损失，我的precision很高，success相对较弱，所以让他们的比重分别为0.6和0.4
 coeff = 0.4;
 L = 1 - (coeff * avg_precision + (1 - coeff) * avg_success);
 
